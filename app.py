@@ -24,7 +24,7 @@ class StreamHandler(BaseCallbackHandler):
 HTML_BANNER = """
     <div style="background-color:#464e5f;padding:10px;border-radius:10px">
     <h1 style="color:white;text-align:center;">A Era Do Cientista de Dados</h1>
-    <p style="color:white;text-align:center;">Bot ChatGPT Desenvolvido durante treinamento   </p>
+    <p style="color:white;text-align:center;">Bot ChatGPT Desenvolvido durante treinamento  BOOTCAMP </p>
     <p style="color:white;text-align:center;"> Quer saber mais ?  click no link  <a style="color:blue;text-align:center;" href="https://cientistadedadosnapratica.com.br/aula1" target="_blank">A Era dos Dados</a> </p>
     <p></p>
     </div>

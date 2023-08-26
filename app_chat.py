@@ -26,7 +26,7 @@ class StreamHandler(BaseCallbackHandler):
         
 HTML_BANNER = """
     <div style="background-color:#464e5f;padding:10px;border-radius:10px">
-    <h1 style="color:white;text-align:center;">A Era Do Ciêntista de Dados</h1>
+    <h1 style="color:white;text-align:center;">A Era Do Cientista de Dados</h1>
     </div>
     """
 

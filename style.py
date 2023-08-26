@@ -118,7 +118,9 @@ def div():
      st.markdown(
             """
             <style>
-            <div class="stActionButton" style="display: none;">
+            .stActionButton{
+            display: none;
+            }
           </style>
         """,
             unsafe_allow_html=True,

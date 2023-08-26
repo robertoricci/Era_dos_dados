@@ -112,3 +112,15 @@ def button():
     </style>
     '''
     st.markdown(butttom, unsafe_allow_html=True)
+    
+    
+def div():
+     st.markdown(
+            """
+            <style>
+            <div class="stActionButton" style="display: none;">
+          </style>
+        """,
+            unsafe_allow_html=True,
+        )
+    

@@ -27,6 +27,8 @@ def main():
         #cabeçalho detalhe superior da página 
     style.headerstyle()
     
+    style.div()
+    
     pages={
         "ChatGPT":page_chat,
         "Conjunto de dados":page_analise,

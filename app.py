@@ -1,73 +1,69 @@
-# Importação dos módulos e classes necessários
-from langchain.callbacks.base import BaseCallbackHandler
-from langchain.chat_models import ChatOpenAI
-from langchain.schema import ChatMessage
+
 import streamlit as st
+import style as style
+from streamlit_option_menu import option_menu
+import app_chat
+import app_home
 
-import streamlit.components.v1 as stc
+
+st.set_page_config(  # Alternate names: setup_page, page, layout
+    layout="wide",  # Can be "centered" or "wide". In the future also "dashboard", etc.
+    initial_sidebar_state="auto",  # Can be "auto", "expanded", "collapsed"
+    page_title="Chat",  # String or None. Strings get appended with "• Streamlit". 
+    page_icon= '',  # String, anything supported by st.image, or None.
+)
 
 
-st.set_page_config(page_title="Open ai Chat", page_icon="💾")
-
-# Define uma classe de callback personalizada que estende a classe BaseCallbackHandler
-class StreamHandler(BaseCallbackHandler):
-    def __init__(self, container, initial_text=""):
-        self.container = container
-        self.text = initial_text
-
-    # Este método é chamado sempre que um novo token é gerado pelo modelo de linguagem
-    def on_llm_new_token(self, token: str, **kwargs) -> None:
-        self.text += token
-        self.container.markdown(self.text)
+#carrega os arquivos css
+def local_css(file_name):
+    with open(file_name) as f:
+        st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
         
-        
-HTML_BANNER = """
-    <div style="background-color:#464e5f;padding:10px;border-radius:10px">
-    <h1 style="color:white;text-align:center;">A Era Do Cientista de Dados</h1>
-    <p style="color:white;text-align:center;">Bot ChatGPT Desenvolvido durante treinamento  BOOTCAMP </p>
-    <p style="color:white;text-align:center;"> Quer saber mais ?  click no link  <a style="color:blue;text-align:center;" href="https://cientistadedadosnapratica.com.br/aula1" target="_blank">A Era dos Dados</a> </p>
-    <p></p>
-    </div>
-    """
-
+    
 def main():
-    stc.html(HTML_BANNER)
-
-    # Cria uma barra lateral na aplicação Streamlit para inserir a chave da API da OpenAI
+    
+       #esconder botão de menu e marca dágua no rodapé
+    style.hidden_menu_and_footer()
+        #cabeçalho detalhe superior da página 
+    style.headerstyle()
+    
+    pages={
+        "ChatGPT":page_chat,
+        "Conjunto de dados":page_analise,
+        "Home":home
+            
+        }
+    
     with st.sidebar:
-        openai_api_key = st.text_input("Chave da API da OpenAI", type="password")
+            style.sidebarwidth() 
+            page = option_menu('Menu', ["Home","ChatGPT"],
+                                    icons=['house','bullseye'],
+                                    default_index=0, menu_icon="app-indicator",   #orientation='horizontal',
+                                ) 
 
-    # Se a chave "messages" não estiver presente no estado da sessão, inicializa com uma mensagem padrão do assistente
-    if "messages" not in st.session_state:
-        st.session_state["messages"] = [ChatMessage(role="assistant", content="Bem vindo? Como posso ajudar?")]
+    pages[page]()
+   
+    
+    with st.sidebar.expander('Sobre'):
+            # Mostrar versões das bibliotecas
+            #st.write(os.popen(f'python --version').read())
+            #st.write('Streamlit:', st.__version__)
+            #st.write('Pandas:', pd.__version__)
+            #st.write('yfinance:', yf.__version__)
+            #st.write('plotly:', plotly.__version__)
+            #st.write('Fundamentus:', fundamentus.__version__)
+            st.write('Feito com Carinho ')
+            st.markdown("- Roberto Carlos Ricci") 
 
-    # Exibe as mensagens do chat armazenadas no estado da sessão
-    for msg in st.session_state.messages:
-        st.chat_message(msg.role).write(msg.content)
+def home():
+    app_home.home()  
+           
+def page_chat():
+     app_chat.main()  
 
-    # Verifica se o usuário inseriu uma nova mensagem
-    if prompt := st.chat_input():
-        # Adiciona a mensagem do usuário ao estado da sessão
-        st.session_state.messages.append(ChatMessage(role="user", content=prompt))
-        st.chat_message("user").write(prompt)
-
-        # Se a chave da API da OpenAI não foi fornecida, exibe uma mensagem informativa e interrompe
-        if not openai_api_key:
-            st.info("Gentileza, adicione sua chave da API da OpenAI para continuar.")
-            st.stop()
-
-        # Gera uma resposta usando o modelo de linguagem e exibe como mensagem do assistente
-        with st.chat_message("assistant"):
-            # Cria uma instância de StreamHandler para lidar com atualizações em tempo real da resposta do assistente
-            stream_handler = StreamHandler(st.empty())
-            
-            # Inicializa o modelo ChatOpenAI com a chave da API fornecida e o modo de streaming
-            llm = ChatOpenAI(openai_api_key=openai_api_key, streaming=True, callbacks=[stream_handler])
-            
-            # Gera uma resposta usando o modelo de linguagem e adiciona ao estado da sessão
-            response = llm(st.session_state.messages)
-            st.session_state.messages.append(ChatMessage(role="assistant", content=response.content))
-            
-        
-if __name__ == '__main__':
-	main()
+def page_analise():
+     #app_home.home()
+     st.write('Feito com Carinho ')
+    
+if __name__ == "__main__":
+    main()

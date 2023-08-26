@@ -3,13 +3,13 @@ from langchain.callbacks.base import BaseCallbackHandler
 from langchain.chat_models import ChatOpenAI
 from langchain.schema import ChatMessage
 import streamlit as st
-import os
-from dotenv import load_dotenv 
+#import os
+#from dotenv import load_dotenv 
 import streamlit.components.v1 as stc
-import pandas as pd
 
-load_dotenv()
-openai_api_key = os.environ.get("key_api")
+
+#load_dotenv()
+#openai_api_key = os.environ.get("key_api")
 
 
 # Define uma classe de callback personalizada que estende a classe BaseCallbackHandler

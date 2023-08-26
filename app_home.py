@@ -13,7 +13,7 @@ def home():
     st.markdown("<h4 style='text-align: center; color: rgb(74, 113, 152)'>Bot ChatGPT Desenvolvido durante Treinamento A Era Do Ciêntista de Dados</h4>", unsafe_allow_html=True)
     st.markdown("<h5 style='text-align: center; color: rgb(74, 113, 152)'></h5>", unsafe_allow_html=True)
     
-    st.markdown("<h4 style='text-align: center; color: rgb(74, 113, 152)'><p> Quer saber mais ?  click no link  <a style='color:white;text-align:center;' href='https://cientistadedadosnapratica.com.br/aula1' target='_blank'>A Era dos Dados</a> </p></h4>", unsafe_allow_html=True)
+    st.markdown("<h4 style='text-align: center; color: rgb(74, 113, 152)'><p> Quer saber mais ?  click no link  <a style='color:back;text-align:center;' href='https://cientistadedadosnapratica.com.br/aula1' target='_blank'>A Era dos Dados</a> </p></h4>", unsafe_allow_html=True)
     
     st.markdown("***")
     
